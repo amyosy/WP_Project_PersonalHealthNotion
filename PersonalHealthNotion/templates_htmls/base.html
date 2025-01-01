@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Health Notion</title>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if session.get('logged_in') %}
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('input_data') }}">Input Data</a>
+                <a href="{{ url_for('reminders') }}">Reminders</a>
+                <a href="{{ url_for('plots') }}">Plots</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
 
+    <!-- Hauptinhalt -->
+    <main class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Personal Health Notion. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
