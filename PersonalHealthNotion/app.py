@@ -24,3 +24,5 @@ def save_user(username, email, password):
     new_user = {"id": new_id, "username": username, "email": email, "password": password}
     users = users.append(new_user, ignore_index=True)  # Neuen Benutzer hinzufügen
     users.to_csv("data/users.csv", index=False)  # Änderungen in der CSV speichern
+
+

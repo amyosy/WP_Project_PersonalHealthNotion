@@ -1,1 +1,1 @@
-id,username,email,password
+id,username,email,password,weight,height,heart_rate,blood_pressure,sleep,stress

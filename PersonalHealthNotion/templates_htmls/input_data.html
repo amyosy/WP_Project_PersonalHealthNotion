@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="text-align: center;">Input Health Data</h2>
+    <p style="text-align: center;">Please fill in your health data below to keep track of your progress.</p>
+    <form action="{{ url_for('input_data') }}" method="POST">
+        <div style="margin-bottom: 15px;">
+            <label for="weight" style="display: block; margin-bottom: 5px;">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="height" style="display: block; margin-bottom: 5px;">Height (cm):</label>
+            <input type="number" id="height" name="height" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="heart_rate" style="display: block; margin-bottom: 5px;">Heart Rate (bpm):</label>
+            <input type="number" id="heart_rate" name="heart_rate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="blood_pressure" style="display: block; margin-bottom: 5px;">Blood Pressure (mmHg):</label>
+            <input type="text" id="blood_pressure" name="blood_pressure" placeholder="e.g., 120/80" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="sleep" style="display: block; margin-bottom: 5px;">Sleep (hours):</label>
+            <input type="number" id="sleep" name="sleep" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="stress" style="display: block; margin-bottom: 5px;">Stress Level:</label>
+            <select id="stress" name="stress" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="1">No Stress</option>
+                <option value="2">Low Stress</option>
+                <option value="3">Moderate Stress</option>
+                <option value="4">High Stress</option>
+                <option value="5">Extreme High Stress</option>
+            </select>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
