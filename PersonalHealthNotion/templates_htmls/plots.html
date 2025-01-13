@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="text-align: center;">Health Data Plots</h2>
+    <p style="text-align: center;">Visualize your health data trends to stay informed about your progress over time.</p>
+
+    {% if plot_available %}
+        <div style="margin: 20px 0; text-align: center;">
+            <h3>{{ plot_title }}</h3>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Health Data Plot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <!-- Pagination Links -->
+            {% if page > 1 %}
+                <a href="{{ url_for('plots', page=page-1) }}" style="margin-right: 10px; padding: 5px 10px; text-decoration: none; background-color: #007bff; color: white; border-radius: 5px;">Previous</a>
+            {% endif %}
+            {% for num in range(1, 7) %}
+                <a href="{{ url_for('plots', page=num) }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; {% if num == page %}background-color: #0056b3; color: white;{% else %}background-color: #007bff; color: white;{% endif %} border-radius: 5px;">{{ num }}</a>
+            {% endfor %}
+            {% if page < 6 %}
+                <a href="{{ url_for('plots', page=page+1) }}" style="margin-left: 10px; padding: 5px 10px; text-decoration: none; background-color: #007bff; color: white; border-radius: 5px;">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div style="margin: 20px 0; text-align: center; color: #ff6f00; font-size: 16px;">
+            <p>No health data available to plot. Please add at least 3 health data entries.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
