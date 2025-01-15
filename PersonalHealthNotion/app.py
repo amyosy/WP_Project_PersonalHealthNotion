@@ -9,25 +9,32 @@ app.config['SECRET_KEY'] = 'your_secret_key'  # Für Flash-Messages und Sessions
 # Globale Variable für Benutzer-Daten
 users = None
 
+
 # Funktion zum Laden der Benutzer aus der CSV-Datei
 def load_users():
     try:
         return pd.read_csv("data/users.csv")
     except FileNotFoundError:
         # Falls die Datei nicht existiert, ein leeres DataFrame zurückgeben
-        return pd.DataFrame(columns=["id", "username", "email", "password", "weight", "height", "heart_rate", "blood_pressure", "sleep", "stress", "reminder"])
+        return pd.DataFrame(
+            columns=["id", "username", "email", "password", "weight", "height", "heart_rate", "blood_pressure", "sleep",
+                     "stress", "reminder"])
+
 
 # Funktion zum Speichern der Benutzer in der CSV-Datei
 def save_users():
     users.to_csv("data/users.csv", index=False)
 
+
 # Benutzer-Daten direkt beim Start laden
 users = load_users()
+
 
 # Route für die Startseite
 @app.route("/")
 def index():
     return render_template("inhalte.html")
+
 
 # Route für die Registrierung
 @app.route("/register", methods=["GET", "POST"])
@@ -66,6 +73,7 @@ def register():
 
     return render_template("register.html")
 
+
 # Route für das Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -86,12 +94,34 @@ def login():
 
     return render_template("login.html")
 
+
 # Route für das Logout
 @app.route("/logout")
 def logout():
     session.clear()
     flash("You have been logged out.", "success")
     return redirect(url_for("index"))
+
+
+# Route für die Home-Seite
+@app.route("/home")
+def home():
+    global users
+    user_id = session.get("user_id")
+    if user_id is None:
+        flash("You need to log in to access the dashboard.", "danger")
+        return redirect(url_for("login"))
+
+    # Gesundheitsdaten und Erinnerungen des Benutzers abrufen
+    user_data = users.loc[
+        users["id"] == user_id, ["weight", "height", "heart_rate", "blood_pressure", "sleep", "stress"]].dropna()
+    reminders = users.loc[users["id"] == user_id, "reminder"].dropna()
+
+    health_data = user_data.to_dict("records")
+    reminders_list = reminders.to_list()
+
+    return render_template("home.html", health_data=health_data, reminders=reminders_list)
+
 
 # Route für die Eingabe von Gesundheitsdaten
 @app.route("/input_data", methods=["GET", "POST"])
@@ -120,6 +150,7 @@ def input_data():
         return redirect(url_for("home"))
 
     return render_template("input_data.html")
+
 
 # App starten
 if __name__ == "__main__":

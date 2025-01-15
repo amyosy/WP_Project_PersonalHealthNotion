@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h1 style="text-align: center;">Dashboard</h1>
+    <p style="text-align: center;">Hello! Welcome to your Personal Health Dashboard. Here you can track and manage your health metrics.</p>
+
+    <!-- Gesundheitsdaten -->
+    {% if health_data %}
+        <h2 style="text-align: center; margin-top: 20px;">Your Health Data</h2>
+        <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            {% for item in health_data %}
+            <div style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; width: 250px;">
+                <h3 style="margin-bottom: 10px;">Health Data #{{ item.id }}</h3>
+                <p><strong>Weight:</strong> {{ item.weight }} kg</p>
+                <p><strong>Height:</strong> {{ item.height }} cm</p>
+                <p><strong>Heart Rate:</strong> {{ item.heart_rate }} bpm</p>
+                <p><strong>Blood Pressure:</strong> {{ item.blood_pressure }}</p>
+                <p><strong>Sleep:</strong> {{ item.sleep }} hours</p>
+                <p><strong>Stress:</strong> {{ item.stress }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; margin-top: 20px; color: #ff6f00;">No health data available. Please input your health data to see progress.</p>
+    {% endif %}
+
+    <!-- Aktionen -->
+    <h2 style="text-align: center; margin-top: 40px;">Quick Actions</h2>
+    <div style="margin-top: 20px; display: flex; gap: 20px; justify-content: center;">
+        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; width: 200px; text-align: center;">
+            <h3>Input Data</h3>
+            <p>Track your health data such as blood pressure, heart rate, and more.</p>
+            <a href="{{ url_for('input_data') }}" style="text-decoration: none; padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px;">Input Data</a>
+        </div>
+        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; width: 200px; text-align: center;">
+            <h3>View Plots</h3>
+            <p>See your progress over time with detailed plots.</p>
+            <a href="{{ url_for('plots') }}" style="text-decoration: none; padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px;">View Plots</a>
+        </div>
+        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; width: 200px; text-align: center;">
+            <h3>Set Reminders</h3>
+            <p>Stay on track by setting reminders and goals.</p>
+            <a href="{{ url_for('reminders') }}" style="text-decoration: none; padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px;">Set Reminders</a>
+        </div>
+    </div>
+
+    <!-- Erinnerungen -->
+    {% if reminders %}
+        <h2 style="text-align: center; margin-top: 40px;">Your Reminders</h2>
+        <ul style="list-style-type: none; padding: 0; margin-top: 20px;">
+            {% for reminder in reminders %}
+            <li style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                {{ reminder.reminder }}
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="text-align: center; margin-top: 20px; color: #ff6f00;">No reminders available. Please set reminders to stay motivated!</p>
+    {% endif %}
+</div>
+{% endblock %}
