@@ -1,42 +1,64 @@
-.text-center img {
-    max-width: 600px;
-    width: 100%;
+/* Hauptlogo */
+.logo {
+    max-width: 200px; /* Größe des Hauptlogos auf der Startseite */
     height: auto;
     margin: 20px auto;
 }
 
-.text-center h1, .text-center p {
-    text-align: center;
+/* Kleines Logo in der Navigationsleiste */
+.nav-logo {
+    height: 50px; /* Kleine Höhe für das Logo */
+    width: auto;
+    margin-right: 10px; /* Abstand zwischen Logo und den Links */
+    display: inline-block; /* Sicherstellen, dass es in einer Zeile mit den Links bleibt */
 }
 
-.btn {
-    display: inline-block;
+/* Text in der Navbar */
+.navbar-text {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between; /* Links auf beiden Seiten der Navbar verteilen */
+    align-items: center; /* Vertikale Ausrichtung zentrieren */
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #37465B; /* Pastell-Dunkelblau */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+    position: sticky; /* Navbar bleibt oben kleben */
+    top: 0;
+    z-index: 1000; /* Damit die Navbar immer im Vordergrund ist */
+}
+
+/* Container für Logo und Links */
+.navbar-container {
+    display: flex;
+    align-items: center; /* Vertikale Ausrichtung */
+    justify-content: space-between;
+    width: 100%; /* Breite der Navbar */
+}
+
+/* Links in der Navbar */
+.navbar-links {
+    display: flex;
+    align-items: center; /* Vertikale Ausrichtung */
+    gap: 15px; /* Abstand zwischen den Links */
+}
+
+.navbar-links a {
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+.navbar-links a:hover {
+    text-decoration: underline;
+    color: #5AFFE7; /* Heller Blauton beim Hover */
 }
 
-.card {
-    flex: 1;
-    margin: 10px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-}
 
-.card h5 {
-    margin-bottom: 15px;
-}
-
-.container-flex {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 40px;
-}

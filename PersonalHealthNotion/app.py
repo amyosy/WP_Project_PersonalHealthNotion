@@ -1,6 +1,9 @@
 import flask
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
 
 # Flask-Setup
 app = Flask(__name__)
@@ -150,6 +153,58 @@ def input_data():
         return redirect(url_for("home"))
 
     return render_template("input_data.html")
+
+
+# Route für Erinnerungen/Notizen
+@app.route("/reminders", methods=["GET", "POST"])
+def reminders():
+    global users
+    user_id = session.get("user_id")
+    if user_id is None:
+        flash("You need to log in to add a reminder.", "danger")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        reminder = request.form["reminder"]
+        users.loc[users["id"] == user_id, "reminder"] = reminder
+        save_users()
+
+        flash("Reminder saved successfully!", "success")
+        return redirect(url_for("home"))
+
+    return render_template("reminders_notes.html")
+
+
+# Route für Plots
+@app.route("/plots", methods=["GET"])
+def plots():
+    global users
+    user_id = session.get("user_id")
+    if user_id is None:
+        flash("You need to log in to view plots.", "danger")
+        return redirect(url_for("login"))
+
+    user_data = users.loc[
+        users["id"] == user_id, ["weight", "height", "heart_rate", "blood_pressure", "sleep", "stress"]]
+    if user_data.empty or user_data.isnull().values.any():
+        return render_template("plots.html", plot_available=False)
+
+    # Beispielplot erstellen
+    plt.figure(figsize=(10, 6))
+    plt.plot(["Weight", "Height", "Heart Rate", "Blood Pressure", "Sleep", "Stress"], user_data.values[0], marker="o")
+    plt.title("Health Data Overview")
+    plt.xlabel("Health Metrics")
+    plt.ylabel("Values")
+    plt.grid()
+
+    img = io.BytesIO()
+    plt.savefig(img, format="png")
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
+    plt.close()
+
+    return render_template("plots.html", plot_available=True, plot_title="Health Data Trends", plot_url=plot_url,
+                           page=1)
 
 
 # App starten
