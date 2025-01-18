@@ -7,18 +7,10 @@
 
 /* Kleines Logo in der Navigationsleiste */
 .nav-logo {
-    height: 50px; /* Kleine Höhe für das Logo */
+    height: 50px; /* Sehr kleine Höhe für das Logo */
     width: auto;
-    margin-right: 10px; /* Abstand zwischen Logo und den Links */
-    display: inline-block; /* Sicherstellen, dass es in einer Zeile mit den Links bleibt */
-}
-
-/* Text in der Navbar */
-.navbar-text {
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-decoration: none;
+    margin-right: 10px; /* Abstand zwischen Logo und Links */
+    display: inline-block; /* Sicherstellen, dass es neben den Links bleibt */
 }
 
 /* Navigation */
@@ -31,7 +23,7 @@ nav {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
     position: sticky; /* Navbar bleibt oben kleben */
     top: 0;
-    z-index: 1000; /* Damit die Navbar immer im Vordergrund ist */
+    z-index: 1000; /* Sicherstellen, dass die Navbar im Vordergrund bleibt */
 }
 
 /* Container für Logo und Links */
@@ -46,7 +38,7 @@ nav {
 .navbar-links {
     display: flex;
     align-items: center; /* Vertikale Ausrichtung */
-    gap: 15px; /* Abstand zwischen den Links */
+    gap: 20px; /* Abstand zwischen den Links */
 }
 
 .navbar-links a {
@@ -61,4 +53,8 @@ nav {
     color: #5AFFE7; /* Heller Blauton beim Hover */
 }
 
-
+/* Globale Einstellungen */
+body {
+    margin: 0;
+    background-color: #f9f9f9; /* Heller Hintergrund */
+}

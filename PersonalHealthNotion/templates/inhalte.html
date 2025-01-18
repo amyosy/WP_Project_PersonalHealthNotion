@@ -3,28 +3,27 @@
 {% block content %}
 
 <div style="text-align: center; margin-top: 20px;">
-    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Personal Health Notion Logo" style="max-width: 500px; width: 900%; height: auto;">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Personal Health Notion Logo" style="max-width: 400px; width: 90%; height: auto;">
     <h1>Welcome to Personal Health Notion</h1>
     <p>Your personal health tracker and goal setter.</p>
     <a href="{{ url_for('register') }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Get Started</a>
-</div>
 
 <div style="margin-top: 40px; text-align: center;">
     <img src="{{ url_for('static', filename='images/wellness.jpeg') }}" alt="Wellness Image" style="max-width: 90%; height: auto; border-radius: 8px;">
 </div>
 
 <div style="display: flex; justify-content: space-around; margin-top: 40px;">
-    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 20px; text-align: center; border-radius: 8px;">
+    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 50px; text-align: center; border-radius: 8px;">
         <h5>Track Your Health Data</h5>
         <p>Input and monitor your health data such as blood pressure, heart rate, weight, and more.</p>
         <a href="{{ url_for('input_data') }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Input Data</a>
     </div>
-    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 20px; text-align: center; border-radius: 8px;">
+    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 50px; text-align: center; border-radius: 8px;">
         <h5>Set Your Reminders</h5>
         <p>Set and achieve your personal health goals to stay motivated and on track.</p>
         <a href="{{ url_for('reminders') }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Set Reminders</a>
     </div>
-    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 20px; text-align: center; border-radius: 8px;">
+    <div style="flex: 1; margin: 10px; border: 1px solid #ddd; padding: 50px; text-align: center; border-radius: 8px;">
         <h5>View Your Progress</h5>
         <p>View your health data over time through detailed plots and charts.</p>
         <a href="{{ url_for('plots') }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">View Plots</a>
