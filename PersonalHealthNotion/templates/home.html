@@ -2,22 +2,22 @@
 
 {% block content %}
 <div style="max-width: 800px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-    <h1 style="text-align: center;">Dashboard</h1>
+    <h1 style="text-align: center;">Hi {{ username }}, welcome to your Dashboard!</h1>
     <p style="text-align: center;">Hello! Welcome to your Personal Health Dashboard. Here you can track and manage your health metrics.</p>
 
     <!-- Gesundheitsdaten -->
     {% if health_data %}
         <h2 style="text-align: center; margin-top: 20px;">Your Health Data</h2>
         <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-            {% for item in health_data %}
+            {% for entry in health_data %}
             <div style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; width: 250px;">
-                <h3 style="margin-bottom: 10px;">Health Data #{{ item.id }}</h3>
-                <p><strong>Weight:</strong> {{ item.weight }} kg</p>
-                <p><strong>Height:</strong> {{ item.height }} cm</p>
-                <p><strong>Heart Rate:</strong> {{ item.heart_rate }} bpm</p>
-                <p><strong>Blood Pressure:</strong> {{ item.blood_pressure }}</p>
-                <p><strong>Sleep:</strong> {{ item.sleep }} hours</p>
-                <p><strong>Stress:</strong> {{ item.stress }}</p>
+                <h3 style="margin-bottom: 10px;">Health Data Entry</h3>
+                <p><strong>Weight:</strong> {{ entry.weight }} kg</p>
+                <p><strong>Height:</strong> {{ entry.height }} cm</p>
+                <p><strong>Heart Rate:</strong> {{ entry.heart_rate }} bpm</p>
+                <p><strong>Blood Pressure:</strong> {{ entry.blood_pressure }}</p>
+                <p><strong>Sleep:</strong> {{ entry.sleep }} hours</p>
+                <p><strong>Stress:</strong> {{ entry.stress }}</p>
             </div>
             {% endfor %}
         </div>
@@ -50,8 +50,8 @@
         <h2 style="text-align: center; margin-top: 40px;">Your Reminders</h2>
         <ul style="list-style-type: none; padding: 0; margin-top: 20px;">
             {% for reminder in reminders %}
-            <li style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                {{ reminder.reminder }}
+            <li style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                {{ reminder }}
             </li>
             {% endfor %}
         </ul>

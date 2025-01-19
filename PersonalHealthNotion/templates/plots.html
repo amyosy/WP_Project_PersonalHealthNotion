@@ -7,25 +7,31 @@
 
     {% if plot_available %}
         <div style="margin: 20px 0; text-align: center;">
-            <h3>{{ plot_title }}</h3>
-            <img src="data:image/png;base64,{{ plot_url }}" alt="Health Data Plot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px;">
+            <h3>{{ current_metric }} Over Time</h3>
+            <img src="data:image/png;base64,{{ current_plot }}" alt="{{ current_metric }} plot"
+                 style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px;">
         </div>
 
         <div style="margin-top: 20px; text-align: center;">
-            <!-- Pagination Links -->
+            <!-- Pagination -->
             {% if page > 1 %}
                 <a href="{{ url_for('plots', page=page-1) }}" style="margin-right: 10px; padding: 5px 10px; text-decoration: none; background-color: #007bff; color: white; border-radius: 5px;">Previous</a>
             {% endif %}
-            {% for num in range(1, 7) %}
-                <a href="{{ url_for('plots', page=num) }}" style="margin: 0 5px; padding: 5px 10px; text-decoration: none; {% if num == page %}background-color: #0056b3; color: white;{% else %}background-color: #007bff; color: white;{% endif %} border-radius: 5px;">{{ num }}</a>
+
+            {% for num in range(1, total_pages + 1) %}
+                <a href="{{ url_for('plots', page=num) }}"
+                   style="margin: 0 5px; padding: 5px 10px; text-decoration: none; {% if num == page %}background-color: #0056b3; color: white;{% else %}background-color: #007bff; color: white;{% endif %} border-radius: 5px;">
+                    {{ num }}
+                </a>
             {% endfor %}
-            {% if page < 6 %}
+
+            {% if page < total_pages %}
                 <a href="{{ url_for('plots', page=page+1) }}" style="margin-left: 10px; padding: 5px 10px; text-decoration: none; background-color: #007bff; color: white; border-radius: 5px;">Next</a>
             {% endif %}
         </div>
     {% else %}
         <div style="margin: 20px 0; text-align: center; color: #ff6f00; font-size: 16px;">
-            <p>No health data available to plot. Please add at least 3 health data entries.</p>
+            <p>No valid data available to plot. Please add health data entries.</p>
         </div>
     {% endif %}
 </div>
